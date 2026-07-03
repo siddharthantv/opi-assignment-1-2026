@@ -45,7 +45,6 @@ The table below maps the structural interface translations and environmental dis
 | `utils.NewFilesystemModeDetector` | `spec.overrides.dpuCNIPath` | Directs low-level file path mapping configuration arrays depending on detected filesystem isolation boundaries. |
 | `resolveNriTLSProvider` (TLS Flow) | `DPUServiceCredentialRequest` | Coordinates webhook certificate verification using `openshift` service-ca or native `cert-manager` flows. |
 | `openshift.io/dpu` (SFC Resource Req) | `DPUFlavor` / `DPUDeployment` | Matches exact hardware resource allocation constraints and higher-level application lifecycles. |
-
 | Pipeline Firmware Upgrades | `DPUSet` & `BFB` (`provisioning.dpu.nvidia.com`) | Orchestrates asynchronous, rolling BFB image flashes, taints, and cold-boot power cycle commands (`://nvidia.com`). |
 | Workload Deployment & HBN Fabrics | `DPUService` (`svc.dpu.nvidia.com`) | Manages Helm-based application delivery on the card, populating NVUE BGP startup configurations and `startupYAMLJ2` loopback strings. |
 | Virtual Service Chains & Telemetry | `DPUServiceInterface` & `DPUServiceChain` | Maps virtual interfaces (`interfaceType: service`) and binds virtual switches directly to hardware uplinks (`p0`, `p1`). |
