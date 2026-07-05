@@ -124,7 +124,7 @@ OPI Operator [ DPF code inside ]
 **Problem:** two controllers reconciling the same DPF CRs (split-brain), a fork to maintain, and
 lockstep releases. Violates C1, C4, C7. Rejected.
 
-### Option D — CRD Translation Layer  ✅ (selected behavior)
+### Option D — CRD Translation Layer (selected behavior)
 A controller watches OPI intent CRs and **translates** them into native DPF CRs, then mirrors DPF
 status back into OPI status. DPF runs unmodified and owns its objects.
 
@@ -142,11 +142,11 @@ generalized into a Vendor Adapter Framework (§8).
 
 | Architecture | DPF Reuse | K8s-native | Complexity | Maintainability | Ownership clarity | Verdict |
 |---|---|---|---|---|---|---|
-| A — VSP-only | ❌ Low (re-impl behind gRPC) | ⚠️ partial | Medium | Low | ⚠️ blurred | Reject |
-| B — Sub-operator (alone) | ⚠️ Medium | ✅ | Medium | Medium | ✅ | Partial |
-| C — Embed/fork DPF | ❌ Very low | ✅ | High | ❌ Low | ❌ split-brain | Reject |
-| **D — CRD Translation (via B, framework-ized)** | ✅ **High (as-is)** | ✅ | Medium | ✅ **High** | ✅ **Clean** | **Select** |
-| Full rewrite | ❌ Very low | ✅ | Very high | ❌ Low | ✅ | Reject |
+| A — VSP-only | Low (re-impl behind gRPC) | Partial | Medium | Low | Blurred | Reject |
+| B — Sub-operator (alone) | Medium | Yes | Medium | Medium | Clean | Partial |
+| C — Embed/fork DPF | Very low | Yes | High | Low | Split-brain | Reject |
+| **D — CRD Translation (via B, framework-ized)** | **High (as-is)** | Yes | Medium | **High** | **Clean** | **Select** |
+| Full rewrite | Very low | Yes | Very high | Low | Clean | Reject |
 
 **Decision:** **Option D**, delivered as a registered adapter through Option B's mechanism and
 generalized into the OPI Vendor Adapter Framework (§8). Highest reuse, cleanest ownership,
@@ -396,7 +396,7 @@ type Capability struct {
 |---|---|---|---|
 | 1.0.x | 1.0.x | 25.x (`v1alpha1`) | Supported |
 | 1.1.x | 1.1.x | 25.x–26.x | Supported |
-| 1.1.x | 1.0.x | 26.x | ⚠️ Degraded — pin adapter to DPF minor |
+| 1.1.x | 1.0.x | 26.x | Degraded, pin adapter to DPF minor |
 
 The adapter pins the DPF API version it translates against and fails **closed** with a clear
 condition if it detects an unknown DPF CRD version, rather than mis-translating.
